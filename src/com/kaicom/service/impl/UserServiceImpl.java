@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kaicom.dao.UserMapper;
+import com.kaicom.exception.SelfException;
 import com.kaicom.pojo.User;
 import com.kaicom.service.IUserService;
 @Transactional
@@ -28,9 +29,13 @@ public class UserServiceImpl implements IUserService{
 		return "success";
 	}
 	@Override
-	public String testTran() {
+	public String testTran() throws SelfException {
 		userMapper.testTransaction1();
 		int i = 1/0;
+		/*if(1==1){
+			//预期异常
+			throw new SelfException(1001,"预期异常");
+		}*/
 		userMapper.testTransaction2();
 		return null;
 	}

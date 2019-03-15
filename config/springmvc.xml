@@ -18,7 +18,18 @@
 		</array>
 	</property>
 </bean>
-
+<!-- 配置拦截器 -->
+<!-- 缺点是只能对controller请求进行拦截，对其他的一些比如直接访问静态资源的请求则没办法进行拦截处理,所以最好将静态资源页面放到WEB-INF下面，这样就不能直接访问页面了 -->
+<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/**"/>
+		<bean class="com.kaicom.intercepter.LoginIntercepter"></bean>
+	</mvc:interceptor>
+</mvc:interceptors>
+<!-- 配置文件上传 -->
+<bean id = "multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<property name="maxUploadSize" value="1048576" />    
+</bean>
 <!-- 配置视图解析器 -->
 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/jsp/"></property>
